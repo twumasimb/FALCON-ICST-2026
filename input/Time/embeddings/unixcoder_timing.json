@@ -1,0 +1,11 @@
+{
+  "model": "microsoft/unixcoder-base",
+  "num_tests": 4044,
+  "embedding_dim": 768,
+  "load_time": 0.9474761486053467,
+  "embedding_time": 18.13535761833191,
+  "total_time": 19.082833766937256,
+  "device": "cuda",
+  "batch_size": 16,
+  "method": "Transformers AutoModel"
+}

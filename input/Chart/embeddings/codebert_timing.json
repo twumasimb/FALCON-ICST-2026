@@ -1,0 +1,11 @@
+{
+  "model": "microsoft/codebert-base",
+  "num_tests": 2193,
+  "embedding_dim": 768,
+  "load_time": 1.4600434303283691,
+  "embedding_time": 17.208553791046143,
+  "total_time": 18.66859722137451,
+  "device": "cuda",
+  "batch_size": 16,
+  "method": "Transformers AutoModel"
+}

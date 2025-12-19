@@ -1,0 +1,11 @@
+{
+  "model": "Salesforce/SFR-Embedding-Code-400M_R",
+  "num_tests": 2193,
+  "embedding_dim": 1024,
+  "load_time": 3.8032333850860596,
+  "embedding_time": 51.88188052177429,
+  "total_time": 55.68511390686035,
+  "device": "cuda",
+  "batch_size": 16,
+  "method": "SentenceTransformer"
+}

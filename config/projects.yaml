@@ -1,0 +1,29 @@
+Chart:
+  defects4j_name: "Chart"
+  total_bugs: 26
+  package_roots: ["org/jfree"]
+
+Math:
+  defects4j_name: "Math"
+  total_bugs: 106
+  package_roots: ["org/apache/commons/math"]
+
+Lang:
+  defects4j_name: "Lang"
+  total_bugs: 65
+  package_roots: ["org/apache/commons/lang"]
+
+Time:
+  defects4j_name: "Time"
+  total_bugs: 27
+  package_roots: ["org/joda/time"]
+
+Closure:
+  defects4j_name: "Closure"
+  total_bugs: 174
+  package_roots: ["com/google/javascript"]
+
+Mockito:
+  defects4j_name: "Mockito"
+  total_bugs: 38
+  package_roots: ["org/mockito"]

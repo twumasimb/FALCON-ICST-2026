@@ -1,0 +1,11 @@
+{
+  "model": "bigcode/starencoder",
+  "num_tests": 4044,
+  "embedding_dim": 768,
+  "load_time": 0.8677489757537842,
+  "embedding_time": 24.994017362594604,
+  "total_time": 25.86176633834839,
+  "device": "cuda",
+  "batch_size": 16,
+  "method": "Transformers AutoModel"
+}

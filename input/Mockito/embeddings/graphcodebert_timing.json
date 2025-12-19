@@ -1,0 +1,11 @@
+{
+  "model": "microsoft/graphcodebert-base",
+  "num_tests": 1292,
+  "embedding_dim": 768,
+  "load_time": 1.119537353515625,
+  "embedding_time": 6.7909181118011475,
+  "total_time": 7.9104554653167725,
+  "device": "cuda",
+  "batch_size": 16,
+  "method": "Transformers AutoModel"
+}
