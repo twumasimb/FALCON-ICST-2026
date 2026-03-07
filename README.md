@@ -1,8 +1,10 @@
-# 🦅 FALCON: Efficient Test Case Prioritization via Submodular Optimization
+# FALCON: Efficient Test Case Prioritization via Submodular Optimization
 
 FALCON is the **first similarity-based test case prioritization approach grounded in submodular optimization**, using the facility location function to provide a principled mathematical foundation for test ordering. By representing test cases as code embeddings and maximizing a facility location objective, FALCON achieves superior fault detection effectiveness while maintaining practical scalability.
 
 ## Overview
+
+**Zenodo DOI**: [10.5281/zenodo.18897073](https://doi.org/10.5281/zenodo.18897073)
 
 This repository implements FALCON and evaluates it against state-of-the-art test case prioritization (TCP) baselines:
 
