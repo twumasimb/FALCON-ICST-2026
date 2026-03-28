@@ -57,7 +57,7 @@ class FacilityLocation:
         new_max = torch.max(current_max, self.similarity_matrix[:, candidate])
         return (new_max - current_max).sum()
 
-    def lazier_than_lazy_greedy(self, budget):
+    def lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
@@ -141,7 +141,7 @@ class LogDeterminant:
 
         return marginal_gain
 
-    def lazier_than_lazy_greedy(self, budget):
+    def lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
@@ -227,7 +227,7 @@ class GraphCut:
 
         return marginal_gain
 
-    def lazier_than_lazy_greedy(self, budget):
+    def lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
