@@ -14,7 +14,7 @@ class FacilityLocation:
         self.device = device
         self.metric = metric
 
-        # Option 1: Use pre-computed similarity matrix (e.g., from MinHash)
+        # Option 1: Use pre-computed similarity matrix
         if similarity_matrix is not None:
             self.similarity_matrix = torch.tensor(similarity_matrix, device=self.device, dtype=torch.float32)
             self.n = similarity_matrix.shape[0]
@@ -93,7 +93,7 @@ class LogDeterminant:
         self.lambda_param = lambda_param
         self.metric = metric
 
-        # Option 1: Use pre-computed similarity matrix (e.g., from MinHash)
+        # Option 1: Use pre-computed similarity matrix
         if similarity_matrix is not None:
             self.similarity_matrix = torch.tensor(similarity_matrix, device=self.device, dtype=torch.float32)
             self.n = similarity_matrix.shape[0]
@@ -175,7 +175,7 @@ class GraphCut:
         self.device = device
         self.metric = metric
 
-        # Option 1: Use pre-computed similarity matrix (e.g., from MinHash)
+        # Option 1: Use pre-computed similarity matrix
         if similarity_matrix is not None:
             self.similarity_matrix = torch.tensor(similarity_matrix, device=self.device, dtype=torch.float32)
             self.n = similarity_matrix.shape[0]
