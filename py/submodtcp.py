@@ -57,7 +57,7 @@ class FacilityLocation:
         new_max = torch.max(current_max, self.similarity_matrix[:, candidate])
         return (new_max - current_max).sum()
 
-    def lazy_greedy(self, budget):
+    def lazier_than_lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
@@ -77,32 +77,6 @@ class FacilityLocation:
                     break
                 else:
                     gains[candidate] = exact_gain
-
-        return subset, gain_values
-
-    def greedy(self, budget):
-        """Standard greedy algorithm without lazy evaluation."""
-        subset = []
-        gain_values = []
-
-        for iteration in tqdm(range(budget), desc="FL Greedy Selection"):
-            best_gain = float('-inf')
-            best_candidate = None
-
-            # Evaluate all remaining candidates
-            for candidate in range(self.n):
-                if candidate in subset:
-                    continue
-
-                gain = self.marginal_gain(subset, candidate)
-                if gain > best_gain:
-                    best_gain = gain
-                    best_candidate = candidate
-
-            # Add best candidate to subset
-            if best_candidate is not None:
-                subset.append(best_candidate)
-                gain_values.append((best_candidate, float(best_gain.cpu().numpy())))
 
         return subset, gain_values
 
@@ -147,17 +121,6 @@ class LogDeterminant:
         else:
             raise ValueError("Must provide either source_embeddings or similarity_matrix")
 
-    def evaluate(self, subset):
-        if not subset:
-            return 0.0
-
-        subset_tensor = torch.tensor(subset, device=self.device)
-        K = self.similarity_matrix[subset_tensor][:, subset_tensor]
-        K_reg = K + self.lambda_param * torch.eye(len(subset), device=self.device)
-        log_det = torch.logdet(K_reg)
-
-        return log_det.cpu().numpy()
-
     def marginal_gain(self, subset, candidate):
         if not subset:
             k_ii = self.similarity_matrix[candidate, candidate]
@@ -178,7 +141,7 @@ class LogDeterminant:
 
         return marginal_gain
 
-    def lazy_greedy(self, budget):
+    def lazier_than_lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
@@ -198,32 +161,6 @@ class LogDeterminant:
                     break
                 else:
                     gains[candidate] = exact_gain
-
-        return subset, gain_values
-
-    def greedy(self, budget):
-        """Standard greedy algorithm without lazy evaluation."""
-        subset = []
-        gain_values = []
-
-        for iteration in tqdm(range(budget), desc="LogDet Greedy Selection"):
-            best_gain = float('-inf')
-            best_candidate = None
-
-            # Evaluate all remaining candidates
-            for candidate in range(self.n):
-                if candidate in subset:
-                    continue
-
-                gain = self.marginal_gain(subset, candidate)
-                if gain > best_gain:
-                    best_gain = gain
-                    best_candidate = candidate
-
-            # Add best candidate to subset
-            if best_candidate is not None:
-                subset.append(best_candidate)
-                gain_values.append((best_candidate, float(best_gain.cpu().numpy())))
 
         return subset, gain_values
 
@@ -271,22 +208,6 @@ class GraphCut:
         if min_sim < 0:
             self.similarity_matrix = (self.similarity_matrix - min_sim) / (self.similarity_matrix.max() - min_sim)
 
-    def evaluate(self, subset):
-        if not subset:
-            return 0.0
-
-        subset_tensor = torch.tensor(subset, device=self.device)
-        all_indices = torch.arange(self.n, device=self.device)
-        unselected_mask = torch.ones(self.n, dtype=torch.bool, device=self.device)
-        unselected_mask[subset_tensor] = False
-        unselected = all_indices[unselected_mask]
-
-        if len(unselected) == 0:
-            return 0.0
-
-        cut_value = self.similarity_matrix[subset_tensor][:, unselected].sum()
-        return cut_value.cpu().numpy()
-
     def marginal_gain(self, subset, candidate):
         if not subset:
             all_indices = torch.arange(self.n, device=self.device)
@@ -306,7 +227,7 @@ class GraphCut:
 
         return marginal_gain
 
-    def lazy_greedy(self, budget):
+    def lazier_than_lazy_greedy(self, budget):
         subset = []
         gains = torch.zeros(self.n, device=self.device)
         gain_values = []
@@ -326,31 +247,5 @@ class GraphCut:
                     break
                 else:
                     gains[candidate] = exact_gain
-
-        return subset, gain_values
-
-    def greedy(self, budget):
-        """Standard greedy algorithm without lazy evaluation."""
-        subset = []
-        gain_values = []
-
-        for iteration in tqdm(range(budget), desc="GraphCut Greedy Selection"):
-            best_gain = float('-inf')
-            best_candidate = None
-
-            # Evaluate all remaining candidates
-            for candidate in range(self.n):
-                if candidate in subset:
-                    continue
-
-                gain = self.marginal_gain(subset, candidate)
-                if gain > best_gain:
-                    best_gain = gain
-                    best_candidate = candidate
-
-            # Add best candidate to subset
-            if best_candidate is not None:
-                subset.append(best_candidate)
-                gain_values.append((best_candidate, float(best_gain.cpu().numpy())))
 
         return subset, gain_values
